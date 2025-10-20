@@ -115,7 +115,3 @@ A proactive monitoring system that uses machine learning to predict potential in
    - System metrics
    - ML model performance
    - Service health
-
-## License
-
-MIT
