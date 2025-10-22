@@ -1,0 +1,45 @@
+---
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+rules:
+  # Spark metrics
+  - pattern: 'metrics<name=(.+), type=(.+)><>Value'
+    name: spark_$1_$2
+  
+  # JVM memory metrics
+  - pattern: 'java.lang<type=Memory><HeapMemoryUsage>(.+)'
+    name: java_lang_memory_heap_$1
+    type: GAUGE
+  - pattern: 'java.lang<type=Memory><NonHeapMemoryUsage>(.+)'
+    name: java_lang_memory_nonheap_$1
+    type: GAUGE
+
+  # Garbage collection metrics
+  - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionCount'
+    name: java_lang_gc_collection_count
+    type: GAUGE
+    labels:
+      name: $1
+  - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionTime'
+    name: java_lang_gc_collection_time
+    type: GAUGE
+    labels:
+      name: $1
+
+  # Thread metrics
+  - pattern: 'java.lang<type=Threading><>ThreadCount'
+    name: java_lang_threading_thread_count
+    type: GAUGE
+  - pattern: 'java.lang<type=Threading><>DaemonThreadCount'
+    name: java_lang_threading_daemon_thread_count
+    type: GAUGE
+
+  # Operating system metrics
+  - pattern: 'java.lang<type=OperatingSystem><>(.+)'
+    name: java_lang_os_$1
+    type: GAUGE
+
+  # Class loading metrics
+  - pattern: 'java.lang<type=ClassLoading><>(.+)'
+    name: java_lang_classloading_$1
+    type: GAUGE
